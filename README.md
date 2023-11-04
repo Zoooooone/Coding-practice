@@ -1,101 +1,17 @@
-# 关于Git使用方法的一些总结（摸索中）
-## git指令
-**设置用户名和邮箱地址（在该设备上第一次使用Git时）**
-<br>这里的用户名和邮件地址就是自己github账号的用户名和邮箱地址
-```
-git config --global user.name <user name>
-git config --global user.email <user email>
-```
-<br>
+# About
 
-**初始化本地仓库**
-<br>根据自己的需要进入对应的目录下初始化一个本地仓库
-```
-git init
-```
-<br>
+This repo is used to store contents of my coding practice.
 
-**查看本地仓库与远程仓库的关联情况**
-<br>可以查看到当前仓库的关联情况<br>
-```
-git remote -v
-```
-<br>
+## Contents
 
-**关联指定的远程仓库**
-<br>将本地仓库与指定地址的远程仓库关联<br>
-```
-git remote add origin <remote_repo_URL>
-```
-<br>
+- **Coding**
+    <br>
+    <img src="assets\img\file-type-python.svg" width=48 height=48> &ensp; <img src="assets\img\java.svg" width=48 height=48> &ensp; <img src="assets\img\file-type-cpp3.svg" width=48 height=48> &ensp; <img src="assets\img\leetcode.svg" width=48 height=48>
+    <br>
+    - data structure
+    - algorithm
+    <br>
 
-**添加本地文件至暂存区**
-<br>第一行表示将当前目录下所有未被跟踪的文件都添加至暂存区，第二行表示将指定路径的文件添加至暂存区（可以添加多个）
-```
-git add .
-git add <file_path>
-```
-<br>
-
-**提交暂存区文件至本地仓库**
-<br>`message`表示对于此次提交内容的简要说明<br>
-```
-git commit -m "message"
-```
-<br>
-
-**将本地仓库推送至远程仓库**
-<br>当本地分支名与远程相同时可以省略冒号后的部分，如果不相同则使用第二行的指令。
-```
-git push origin <local_branch>
-git push origin <local_branch>:<remote_branch>
-```
-例：本地分支名与远程分支名都为`main`，则使用
-```
-git push origin main
-```
-例: 本地分支名为`master`, 远程分支名为`main`, 则使用
-```
-git push origin master:main
-```
-如果在本地分支上已经设置了上游分支（通常是在从远程仓库拉取或克隆分支，并且执行过一次推送后）则可以省略push后的部分
-```
-git push
-```
-<br>
-
-**查看本地仓库的状态**
-<br>可以查看本地仓库中尚未被跟踪的文件，以及修改过后未被添加至暂存区的文件
-```
-git status
-```
-<br>
-
-**从远程仓库拉取分支到本地并合并**
-<br>通常情况下，拉取远程仓库分支时上游分支已存在，如果只需要拉取并合并到本地当前所在的分支时，直接使用`git pull`即可
-```
-git pull
-```
-当需要拉取其他远程分支的更新时，则需要额外指定远程分支名
-```
-git pull origin <remote_branch>
-```
-当需要拉取其他远程分支的更新到其他本地分支时，则需要额外指定远程分支名和本地分支名
-```
-git pull origin <remote_branch>:<local_branch>
-```
-
-## git的状态模型
-常用的一些git指令以及其作用的对象和效果<br><br>
-![image](https://github.com/Zoooooone/Coding-practice/blob/master/git_structure.png)
-<br><br>
-![image](https://github.com/Zoooooone/Coding-practice/blob/master/git_structure_2.jpg)
-
-## 个人心得
-### 最初的一些尝试
-&ensp;&ensp;本人开始使用git进行代码版本管理的主要目的是为了在多个设备上同步研究所需的代码，并且希望后续能够不断地进行完善。在了解了上述的一些基础的git指令后本人便开始了一些尝试，但随即便遇到了一些问题。<br>
-&ensp;&ensp;最初的项目文件夹的内部结构是包含了多个子文件夹，其中一个文件夹内包含了各种用于分析的实验数据。我的需求是将本地项目文件夹中不包含数据的部分（可能涉及到实验参与人员的隐私）上传到github的远程仓库，并且希望在别的设备上也能关联到远程仓库进行代码的同步管理。我尝试了一些方法，诸如在各个设备上的项目文件夹内建立本地仓库，然后关联到同一个远程仓库（其实应该是可行的），但是由于最初的认知比较粗放，研究了半天也没能成功。当时的思路限死在**如何在一台设备上将项目文件夹内的部分文件上传到远程仓库，并且在其他设备上同步远程仓库的内容并覆盖到该设备上对应的项目文件夹内**这件事上了。<br>
-&ensp;&ensp;后来经过思考发现完全可以在一个设备上把要上传的内容重新整理好，然后只将需要上传的部分上传至远程仓库。随后在其他设备上把远程仓库克隆至本地，最后再将未上传的数据部分重新加入这个克隆过来的仓库即可。这样不管在哪个设备上都可以正常运行之前的代码了。仔细想想其实是一个很简单的问题，但是由于一开始对于git指令的应用没有经验，同时思路也因此被限制从而导致进展不顺。如果是建立了多个仓库关联至远程的话，用pull应该也能实现我的需求，毕竟与克隆类似都是从远程仓库获取内容至本地仓库。
-
-### 关于add和commit
-&ensp;&ensp;之前在还不太了解这两个指令的具体效果时做出了一些错误的操作。比如将本地仓库中的内容上传至远程仓库时无脑使用了`git add .`，随后直接commit + push。这导致一些过大的文件也被加入了上传列表，但是由于github并不支持过大文件的上传，以及commit后无法将这些文件移除，最后不得不删除了整个本地仓库。如果是已经add了但是没有commit，则可以使用`git rm --cached <file/path>`来删除暂存区中被误传入的内容，但一旦commit事情就会变得麻烦了。不过这个删除的行为目前感觉最好不要随意使用，或者说初次add后直接使用或许问题不大，但是如果有过修改的记录则可能会产生一些冲突需要手动解决？？（目前还不太了解具体的原理）
+- **ML**
+    <br>
+    <img src="assets\img\pytorch.svg" width=48 height=48> &ensp; <img src="assets\img\tensorflow.svg" width=48 height=48> &ensp; <img src="assets\img\scikitlearn.svg" width=48 height=48> &ensp; <img src="assets\img\numpy.svg" width=48 height=48> &ensp; <img src="assets\img\matplotlib.svg" width=48 height=48>
