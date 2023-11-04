@@ -1,7 +1,8 @@
-# 笔记
-## 数据类型
-### 基本数据类型 (Primitive types)
+# Java学习笔记
 
+## 数据类型
+
+### 基本数据类型 (Primitive types)
 1. byte
    
     `Byte.SIZE = 8`, `Byte.MIN_VALUE = -2 ^ 7 = -128`, `Byte.MAX_VALUE = 2 ^ 7 - 1 = 127` 
@@ -35,5 +36,120 @@
     单一的16位Unicode字符
 
 ### 引用数据类型 (Reference types)
-
 引用数据类型指向一个对象，指向对象的变量就是**引用变量**，该变量存储了对象在内存中的**地址**。引用变量在被声明时被指定为一个特殊的数据类型，如某一个特定的类。
+
+### 常量
+- 常量在程序运行时不能被修改
+- 使用`final`关键字来修饰常量，声明方式如下：
+    ```java
+    final double PI = 3.1415926
+    ```
+- 通常使用**大写字母**表示常量
+
+### 自动类型转换
+整型、实型（常量）、字符型数据可以混合运算。不同的数据类型会转化为同一数据类型，转化优先级如下：
+```java
+byte, short, char -> int -> long -> float -> double
+```
+规则：
+- 不能对`boolean`类型进行类型转换
+- 容量大的类型转换为容量小的类型时必须使用[**强制类型转换**](#强制类型转换)
+- 转换过程中可能导致溢出或损失精度
+- 浮点数转换到整数时会**舍弃小数部分**，而不是四舍五入
+- 字符转换为整数类型时的值为对应的**ASCII编号**
+
+### 强制类型转换
+规则：
+- 转换的数据类型必须相互兼容
+- 转换格式：`(type) value`
+
+细节：
+- 整数的默认类型是`int`
+- 小数的默认类型是`double`，在定义`float`类型时须在数字后跟上`F`或`f`
+
+
+## 变量类型
+Java语言支持四种变量类型，分别为：**局部变量(Local Variables)**、**成员变量(Instance Variables)**、**静态变量(Class Variables)**、**参数变量(Parameters)**。
+
+### 局部变量
+- 作用范围：只在定义它们的代码块内部可见
+- 生命周期：超出代码块该变量就会被销毁
+- 作用: 用于存储代码块中临时的变量
+- 例子：
+    ```java
+    public class variables {
+        public static void cal_sum(){
+            int x = 10;
+            int y = 15;
+            System.out.println("sum: " + (x + y));
+        }
+
+        public static void main(String[] args){
+            for (int i = 0; i < 5; i++){
+                System.out.print(i + " ");
+            }
+            // System.out.println(i);  i will not be stored after for loop
+            // System.out.println(x);  x will not be stored out of the cal_sum block
+            System.out.print("\n");
+            cal_sum();
+        }
+    }
+    ```
+    1. 位于for循环中的循环变量`i`在离开循环代码块后就不再被保存，也无法被访问
+    2. 位于静态方法`cal_sum`中的局部变量`x`在离开该方法的代码块后也无法被访问
+
+### 成员变量
+- 作用范围：类的**对象中**
+- 生命周期：与类的**对象**的生命周期相同
+- 作用：用于存储类的对象的特定状态与数据
+- 例子：
+    ```java
+    public class variables {
+        String instance_num = "instance variable";
+
+        public static void main(String[] args){
+            /* instance variable */
+            // System.out.println(instance_num); instance_num can not be accessed without a object
+            variables obj = new variables();
+            System.out.println(obj.instance_num); 
+        }
+    }
+    ```
+    成员变量在对象实例被创造之前无法被访问，其完全依赖于对象的状态
+
+### 静态变量
+- 作用范围：类中
+- 生命周期：与类的生命周期相同
+- 作用：用于存储与整个类相关的信息，如常量或共享的状态
+- 例子：
+    ```java
+    public class variables {
+        static final double PI = 3.14;
+
+        public static void main(String[] args){
+            /* class variable */
+            System.out.println(PI);
+        }
+    }
+    ```
+    其可以在类的静态方法中直接被访问
+
+### 参数变量
+- 作用范围：参数变量是方法的输入值，只在方法内部生效
+- 生命周期：方法被执行期间
+- 作用: 向方法传递数据
+- 例子：
+    ```java
+    public class variables {
+        public static void cal_sum_2(int p, int q){
+            System.out.println("p + q = " + (p + q));
+        }
+
+        public static void main(String[] args){
+            /* parameters */
+            cal_sum_2(1, 2);
+            // System.out.println(p); p can not be accessed out of the method
+        }
+    }
+    ```
+    对于方法`cal_sum_2`，`p`和`q`都是参数变量，只在执行这个方法期间存在，无法从外部被访问
