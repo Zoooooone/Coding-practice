@@ -153,3 +153,197 @@ Java语言支持四种变量类型，分别为：**局部变量(Local Variables)
     }
     ```
     对于方法`cal_sum_2`，`p`和`q`都是参数变量，只在执行这个方法期间存在，无法从外部被访问
+
+
+## 修饰符
+Java语言的修饰符分为两类：
+- 访问修饰符
+- 非访问修饰符
+
+### 访问修饰符
+用来保护对类、变量、方法和构造方法的访问。支持四种权限：
+- **default**：什么也不写。
+  - 可见范围：同一包内
+  
+- **private**
+  - 可见范围：同一类内
+
+- **public**
+  - 可见范围：所有类
+
+- **protected**
+  - 可见范围：同一包内的类和所有子类
+
+### 非访问修饰符
+- **static**
+  - 静态变量：**独立于类的对象的变量**。无论一个类实例化多少对象，静态变量都只有一份拷贝
+  - 静态方法：**独立于对象的方法**，不能使用类的非静态变量
+
+- **final**
+  - final变量：一旦被赋值后就**不能被重新赋值**。通常用来和static一起用来创建类常量
+  - final方法：父类中的final方法可以被子类继承，但**不能被子类重写**
+  - final类：final类**不能被继承**
+
+
+## 运算符
+Java中的运算符主要可以分为以下几种：
+- 算术运算符
+- 关系运算符
+- 位运算符
+- 逻辑运算符
+- 赋值运算符
+- 其他运算符
+
+### 算术运算符
+|| 描述 |
+|---|---|
+| `+` | 加 |
+| `-` | 减 |
+| `*` | 乘 |
+| `/` | 除 |
+| `++` | 自增 |
+| `--` | 自减 |
+
+**注意**：自增和自减符号的顺序会影响结果。
+- 前缀自增自减法（`++a`, `--a`）：
+- 后缀自增自减法（`a++`, `a--`）
+
+**区别**：前者先进行自增减运算，再进行表达式计算；后者先进行表达式计算，再进行自增减运算。示例：
+```java
+public class increment_decrement {
+    public static void main(String[] args){
+        int x = 20;
+        System.out.println(++x);  // ++ first, then print x, 21
+        System.out.println(x++);  // print x first, then ++, 21
+        System.out.println(x);  // 22
+    }
+}
+```
+
+### 关系运算符
+|| 描述 |
+|---|---|
+| `==` | 判断是否相等 |
+| `!=` | 判断是否不等 |
+| `>` | 判断是否左大于右 |
+| `<` | 判断是否左小于右 |
+| `>=` | 判断是否左大于等于右 |
+| `<=` | 判断是否左小于等于右 |
+
+### 位运算符
+|| 描述 |
+|---|---|
+| `&` | 按位与 |
+| `\|` | 按位或 |
+| `^` | 按位异或 |
+| `~` | 按位取反（一元运算符） |
+| `<<` | 左移 |
+| `>>` | 右移 |
+| `>>>` | 右移，空位补零 |
+
+### 逻辑运算符
+|| 描述 |
+|---|---|
+| `&&` | and |
+| `\|\|` | or |
+| `!` | not |
+
+### 赋值运算符
+与python基本一致，略
+
+### 条件运算符
+三元运算符，主要**决定哪个值应该赋值给变量**
+```java
+variable x = expression ? value1 : value2
+// variable x = value1 if expression == True else value2
+```
+
+
+## 循环结构
+### while
+与python一致，例：
+```java
+public class loops {
+    public static void main(String[] args){
+        /* while loop */
+        System.out.println("while loop:");
+        int x = 5;
+        while (x < 7){
+            System.out.print(x + " ");
+            x++;
+        }
+    }
+}
+```
+输出：
+```
+while loop:
+5 6 
+```
+
+### do ... while
+**与while的区别**：最开始的时候若`while`后的布尔表达式结果为`false`，仍会执行一次`do`代码块中的内容。其余时候与普通的`while`没有区别。例：
+```java
+public class loops {
+    public static void main(String[] args){
+        /* do while loop */
+        System.out.println("\ndo while loop:");
+        int x = 10;
+        do{
+            System.out.print(x + " ");
+            x++;
+        } while (x < 7);
+    }
+}
+```
+输出:
+```
+do while loop:
+10 
+```
+
+### for
+与python一致，例：
+```java
+public class loops {
+    public static void main(String[] args){
+        /* for loop */
+        System.out.println("\nfor loop:");
+        int x = 5;
+        for(; x < 7; x++){
+            System.out.print(x + " ");
+        }
+    }
+}
+```
+输出:
+```
+for loop:
+5 6 
+```
+
+### for each（作用于数组）
+Java5新特性，主要用于数组的循环。循环变量的类型与数组元素的类型匹配。例:
+```java
+public class loops {
+    public static void main(String[] args){
+        /* for each */
+        System.out.println("\nfor each loop:");
+        int [] nums = {1, 2, 3, 4 ,5};
+        for (int num: nums){
+            System.out.print(num + " ");
+        }
+        System.out.println();
+        char [] alphabet = {'a', 'b', 'c'};
+        for (char s: alphabet){
+            System.out.print(s + " ");
+        }
+    }
+}
+```
+输出
+```
+for each loop:
+1 2 3 4 5 
+a b c 
+```
