@@ -341,9 +341,228 @@ public class loops {
     }
 }
 ```
-输出
+输出：
 ```
 for each loop:
 1 2 3 4 5 
 a b c 
 ```
+
+
+## 条件语句
+
+### if else
+与python一致，注意语法即可。例：
+```java
+public class conditional_statement {
+    public static void main(String[] args){
+        boolean flag = false;
+        if (!flag){
+            System.out.println("yes!");
+        } else {
+            System.out.println("no!");
+        }
+    }
+}
+```
+输出：
+```
+yes!
+```
+
+### if else if else
+与python一致，注意语法即可。例：
+```java
+public class conditional_statement {
+    public static void main(String[] args){
+        int x = 0;
+        for (; x < 20; x++){
+            if (x % 4 == 0){
+                System.out.print("a ");
+            } else if (x % 4 == 1){
+                System.out.print("b ");
+            } else if (x % 4 == 2){
+                System.out.print("c ");
+            } else{
+                System.out.print("d ");
+            }
+        }
+    }
+}
+```
+输出：
+```
+a b c d a b c d a b c d a b c d a b c d 
+```
+
+### switch case
+用于判断**一个变量**与**一系列值**中的某个值是否相等，每个值称为一个分支。例：
+```java
+import java.util.Scanner;
+
+public class conditional_statement {
+    public static void main(String[] args){
+        /* switch case */
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\nday = ");
+        if (scanner.hasNextInt()){
+            int day = scanner.nextInt();
+
+            switch (day){
+                case 1:
+                    System.out.println("Monday");
+                    break;
+                case 2:
+                    System.out.println("Tuesday");
+                    break;
+                case 3:
+                    System.out.println("Wednesday");
+                    break;
+                case 4:
+                    System.out.println("Thursday");
+                    day += 1;
+                    break;
+                case 5:
+                    System.out.println("Friday");
+                    break;
+                case 6:
+                    System.out.println("Saturday");
+                    break;
+                case 7:
+                    System.out.println("Sunday");
+                    break;
+                default:
+                    System.out.println("Wrong input!");
+            }
+            System.out.println("\nday = " + day);
+        }
+        scanner.close();
+    }
+}
+```
+`day`输入为3时，输出：
+```
+day = 3
+Wednesday
+
+day = 3
+```
+`day`输入为4时，输出：
+```
+day = 4
+Thursday
+
+day = 5
+```
+由此可以发现，用于判断的那个值在进入`switch case`代码块后就已经确定了，虽然对应的变量的值仍然可以被修改，但是在和各个`case`比较的过程中用的还是**最初进入代码块时的值**。直到所有判断执行结束后，针对此变量值得修改才会生效。
+<br>
+
+此外，注意每个`case`中都存在`break`语句，用于终止后续不必要的判断。如果后续的一部分`case`中没有`break`，那么从满足条件的`case`到后续第一个存在`break`语句的`case`中的所有内容都会被执行，例：
+```java
+switch (day){
+    case 1:
+        System.out.println("Monday");
+    case 2:
+        System.out.println("Tuesday");
+    case 3:
+        System.out.println("Wednesday");
+    case 4:
+        System.out.println("Thursday");
+        day += 1;
+    case 5:
+        System.out.println("Friday");
+        break;
+    case 6:
+        System.out.println("Saturday");
+        break;
+    case 7:
+        System.out.println("Sunday");
+        break;
+    default:
+        System.out.println("Wrong input!");
+}
+```
+输出：
+```
+day = 1
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+
+day = 2
+```
+
+
+## Number & Math 类
+
+### Number 类
+不使用Java内置数据类型，而是调用包装好的`Number`类中的对象来获取数据对象。
+```mermaid
+graph TD
+    A[Object] --- B[Number];
+    A --- C[Boolean];
+    A --- D[Character];
+    C --- c(boolean);
+    D --- d(char);
+    B --- b1[Byte];
+    B --- b2[Short];
+    B --- b3[Integer];
+    B --- b4[Long];
+    B --- b5[Float];
+    B --- b6[Double];
+    b1 --> 1(byte);
+    b2 --> 2(short);
+    b3 --> 3(int);
+    b4 --> 4(long);
+    b5 --> 5(float);
+    b6 --> 6(double); 
+```
+
+**常用方法**：
+| 方法 | 描述 |
+|---|---|
+| `xxxValue()` | 将`Number`对象转换为`xxx`数据类型的值并返回 |
+| `valueOf()` | 返回一个`Number`对象指定的内置数据类型 |
+| `toString()` | （将数字）以字符串形式返回值 |
+| `parseInt()` | 将（数字的）字符串解析为`int`类型 |
+| ... | ... |
+
+一些例子：
+```java
+public class number{
+    public static void main(String[] args){
+        /* xxxvalue */
+        Integer x = 5;
+        Double y = 5.0;
+        System.out.println("int x -> double x: " + x.doubleValue());
+        System.out.println("double y -> int y: " + y.intValue());
+
+        /* valueOf */
+        Integer a = Integer.valueOf(9);
+        System.out.println("a = " + a);
+
+        /* toString */
+        String x_string = x.toString();
+        System.out.println(x_string.getClass());
+
+        /* parseInt */
+        String s = "68";
+        int s_int = Integer.parseInt(s);
+        System.out.println(s_int);
+    }
+}
+```
+输出：
+```
+int x -> double x: 5.0
+double y -> int y: 5
+a = 9
+class java.lang.String
+68
+```
+
+### Math 类
+包含了用于执行基本数学运算的属性和方法。
+
