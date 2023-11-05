@@ -1,3 +1,4 @@
+package practice;
 public class EmployeeTest {
     public static void main(String[] args){
         Employee tom = new Employee("Tom");
