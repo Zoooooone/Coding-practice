@@ -495,7 +495,8 @@ day = 2
 ```
 
 
-## Number & Math 类
+## 基础类
+位于`java.lang`包中，无需特意使用`import`语句引用该包
 
 ### Number 类
 不使用Java内置数据类型，而是调用包装好的`Number`类中的对象来获取数据对象。
@@ -566,3 +567,239 @@ class java.lang.String
 ### Math 类
 包含了用于执行基本数学运算的属性和方法。
 
+**常用方法**：
+| 方法 | 描述 |
+|---|---|
+| `abs()` | 绝对值 |
+| `ceil()` | **向上**取整，返回类型为`double` |
+| `floor()` | **向下**取整 |
+| `round()` | 四舍五入，算法为`Math.floor(x + 0.5)` |
+| `rint()` | 与参数最接近的整数，如果距离相同则取为**偶数**的那一个。返回类型为`double` |
+| `max()` | **两个参数**中的最大值 |
+| `min()` | **两个参数**中的最小值 |
+| `exp()` | e的参数次幂 |
+| `log()` | 参数的自然对数 |
+| `pow()` | `pow(x, y)`，`x`的`y`次方 |
+| `sqrt()` | 参数的算术平方根 |
+| `random()` | 返回一个随机数 |
+| ... | ... |
+
+一些例子：
+```java
+public class math{
+    public static void main(String[] args){
+        /* ceil, floor, round, rint */
+        double [] nums = {-2.5, -1.6, -1.5, -1.4, 1.4, 1.5, 1.6};
+        for (double num: nums){
+            double num_ceil = Math.ceil(num);
+            double num_floor = Math.floor(num);
+            double num_round = Math.round(num);
+            double num_rint = Math.rint(num);
+            
+            System.out.print("num = " + num + " num_ceil = " + num_ceil);
+            System.out.print(" num_floor = " + num_floor + " num_round = " + num_round);
+            System.out.print(" num_rint = " + num_rint + "\n");
+        }
+
+        /* max, min */
+        int a = 1, b = 2;
+        System.out.println("\nmax: " + Math.max(a, b));
+        System.out.println("min: " + Math.min(a, b));
+
+        /* exp, log, pow, sqrt */
+        System.out.println("\ne ^ log2 = " + Math.exp(Math.log(2)));
+        System.out.println("log(e ^ 3) = " + Math.log(Math.pow(Math.E, 3)));
+        System.out.println("sqrt(16) = " + Math.sqrt(16));
+
+        /* random */
+        System.out.println("\nrandom number: " + Math.random());
+    }
+}
+```
+输出:
+|  | ceil | floor | round | rint |
+|---|---|---|---|---|
+| -2.5 | -2.0 | -3.0 | **-2.0** | **-2.0** |
+|-1.6| -1.0 | -2.0 | -2.0 | -2.0 |
+|-1.5| -1.0 | -2.0 | **-1.0** | **-2.0** | 
+|-1.4| -1.0 | -2.0 | -1.0 | -1.0 |
+|1.4| 2.0 | 1.0 | 1.0 | 1.0 |
+|1.5| 2.0 | 1.0 | 2.0 | 2.0 |
+|1.6| 2.0 | 1.0 | 2.0 | 2.0 |
+
+```
+max: 2
+min: 1
+
+e ^ log2 = 2.0
+log(e ^ 3) = 3.0
+sqrt(16) = 4.0
+
+random number: 0.3463097398410294
+```
+
+### Character 类
+用于对单个字符进行操作。对象为一个基本数据类型为`char`的值。
+
+**常用方法**
+| 方法 | 描述 |
+|---|---|
+| `isLetter()` | 判断字符是否为**字母** |
+| `isDigit()` | 判断字符是否为**数字** |
+| `isWhitespace()` | 判断字符是否为**空格**字符（注意：**空字符**在Java中用`'\0'`表示） |
+| `isUpperCase()` | 判断字符是否为**大写字母** |
+| `isLowerCase()` | 判断字符是否为**小写字母** |
+| `toUpperCase()` | 将字符**转变为大写字母** |
+| `toLowerCase()` | 将字符**转变为小写字母** |
+| `toString()` | 返回字符的**字符串形式**，长度为1 |
+| ... | ... |
+
+一些例子：
+```java
+public class character{
+    public static void main(String[] args){
+        Character [] chars = {'A', 'a', '1', ' '};
+        for (Character c: chars){
+            character.print_res(c);
+        }
+    }
+
+    private static void print_res(Character c){
+        System.out.print("\n\n" + c + "\tis letter: " + Character.isLetter(c));
+        System.out.print("\tis digit: " + Character.isDigit(c));
+        System.out.print("\tis white space: " + Character.isWhitespace(c));
+        System.out.print("\tis uppercase: " + Character.isUpperCase(c));
+        System.out.print("\tis lowercase: " + Character.isLowerCase(c));
+        System.out.print("\tto uppercase: " + Character.toUpperCase(c));
+        System.out.print("\tto lowercase: " + Character.toLowerCase(c));
+        System.out.print("\tto string: " + Character.toString(c).getClass());
+    }
+}
+```
+输出：
+```
+A	is letter: true	    is digit: false	is white space: false	is uppercase: true	    is lowercase: false	    to uppercase: A	    to lowercase: a	    to string: class java.lang.String
+
+a	is letter: true	    is digit: false	is white space: false	is uppercase: false	    is lowercase: true	    to uppercase: A	    to lowercase: a	    to string: class java.lang.String
+
+1	is letter: false	is digit: true	is white space: false	is uppercase: false	    is lowercase: false	    to uppercase: 1	    to lowercase: 1	    to string: class java.lang.String
+
+ 	is letter: false	is digit: false	is white space: true	is uppercase: false	    is lowercase: false	    to uppercase:  	    to lowercase:  	    to string: class java.lang.String
+```
+
+### String 类
+用来创建和操作字符串对象，但是**不能直接对该对象进行修改**。创建字符串的方法有两种：
+- 直接创建
+    ```java
+    String s1 = "hello";
+    ```
+- 使用对象创建
+    ```java
+    String s1 = new String("hello");
+    ```
+
+区别：使用前者创建的字符串存储在**公共池**中，当想要创建的字符串已经存在于公共池中时便不会再额外创建新的字符串对象了，而是直接**引用**已存在的字符串对象。而使用后者创建的字符串存储在**堆**上，此时无论是否已存在相同的字符串都会在堆内存上分配一个新的对象。示例代码如下：
+```java
+String s1 = "hello";
+String s2 = "hello";
+String s3 = s1;
+String s4 = new String("hello");
+String s5 = new String("hello");
+```
+创建情况示意图如下：
+```mermaid
+flowchart TD
+    s1[s1] --> s;
+    s2[s2] --> s;
+    s3[s3] --> s;
+    s4[s4] --> s4_obj;
+    s5[s5] --> s5_obj;
+
+    subgraph common pool
+    s[hello];
+    end
+
+    subgraph heap
+    s4_obj[String:hello];
+    s5_obj[String:hello];
+    end 
+```
+
+此外，字符串还可以通过字符数组创建：
+```java
+char [] chars = {'h', 'e', 'l', 'l', 'o'};
+String s6 = new String(chars);
+```
+
+<br>
+
+**常用方法**
+| 方法 | 描述 |
+|---|---|
+| `charAt(int index)` | 返回指定索引处的字符 |
+| `concat(String str)` | 将参数中的字符串连接到此字符串之后 |
+| `equals(Object obj)` | 判断此字符串与指定对象是否相等 |
+| `indexOf(String str)` | 返回指定字符**第一次**在字符串中出现处的索引，若不存在返回`-1` |
+| `length()` | 返回字符串长度 |
+| `replace(char old, char new)` | **返回一个新的字符串**，将原字符串中所有指定字符换成新的指定字符 |
+| `substring(int begin, int end)` | **返回一个新的字符串**，是指定索引范围的子串，**左闭右开** |
+| `toCharArray()` | 将此字符串转换为一个新的字符数组 |
+| `contains(CharSequence chars)`* | 判断是否包含指定的字符序列 |
+| `isEmpty()` | 判断字符串是否为空 |
+| ... | ... |
+
+注*：`CharSequence`是一个接口，`String`继承自`CharSequence`，也就是说`String`也是`CharSequence`类型。`contains()`方法中传入字符串类型即可。
+
+<br>
+
+**代码示例**：
+```java
+import java.util.Arrays;
+
+public class string {
+    public static void main(String[] args){
+        /* create strings */
+        String s1 = "hello";
+        String s2 = new String("hello");
+        
+        char [] chars = {'h', 'e', 'l', 'l', 'o'};
+        String s3 = new String(chars);
+
+        System.out.println("s1: " + s1);
+        System.out.println("s2: " + s2);
+        System.out.println("s3: " + s3);
+
+        /* methods */
+        System.out.println("\ncharAt: " + s1.charAt(0));
+        System.out.println("concat: " + s1.concat(s2));
+        System.out.println("equals: " + s1.equals(s3));
+        System.out.println("indexOf: " + s1.indexOf("l"));
+        System.out.println("lastIndexOf: " + s1.lastIndexOf("l"));
+        System.out.println("length: " + s1.length());
+        System.out.println("replace: " + s1.replace('l', 'x'));
+        System.out.println("substring: " + s1.substring(1, 3));
+        char [] s1_array = s1.toCharArray();
+        System.out.println(Arrays.toString(s1_array));
+        System.out.println("contains: " + s1.contains("l"));
+        System.out.println("isEmpty: " + s1.isEmpty());
+    }
+}
+```
+输出：
+```
+s1: hello
+s2: hello
+s3: hello
+
+charAt: h
+concat: hellohello
+equals: true
+indexOf: 2
+lastIndexOf: 3
+length: 5
+replace: hexxo
+substring: el
+[h, e, l, l, o]
+contains: true
+isEmpty: false
+```
