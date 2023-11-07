@@ -1,39 +1,41 @@
-# Java学习笔记
-
 ## 数据类型
 
 ### 基本数据类型 (Primitive types)
-1. byte
+1. byte **8位**
+    - `Byte.SIZE = 8`
+    - `Byte.MIN_VALUE = -2 ^ 7 = -128`
+    - `Byte.MAX_VALUE = 2 ^ 7 - 1 = 127` 
+
+2. short **16位**
+    - `Short.SIZE = 16`
+    - `Short.MIN_VALUE = -2 ^ 15 = -32768`
+    - `Short.MAX_VALUE = 2 ^ 15 - 1 = 32767`
+
+3. int **32位**
+    - `Int.SIZE = 32`
+    - `Int.MIN_VALUE = -2 ^ 31 = -2147483648`
+    - `Int.MAX_VALUE = 2 ^ 31 - 1 = 2147483647`
+
+4. long **64位**
+    - `Long.SIZE = 64`
+    - `Long.MIN_VALUE = -2 ^ 63 = -9223372036854775808`
+    - `Long.MAX_VALUE = 2 ^ 63 - 1 = 9223372036854775807`
+
+5. float **单精度，32位**
+    - `Float.SIZE = 32`
+    - `Float.MIN_VALUE = 2 ^ -149 = 1.4E-45`
+    - `Float.MAX_VALUE = 2 ^ 128 - 1 = 3.4028235E38` 
    
-    `Byte.SIZE = 8`, `Byte.MIN_VALUE = -2 ^ 7 = -128`, `Byte.MAX_VALUE = 2 ^ 7 - 1 = 127` 
-
-2. short
-   
-    `Short.SIZE = 16`, `Short.MIN_VALUE = -2 ^ 15 = -32768`, `Short.MAX_VALUE = 2 ^ 15 - 1 = 32767`
-
-3. int 
-   
-    `Int.SIZE = 32`, `Int.MIN_VALUE = -2 ^ 31 = -2147483648`, `Int.MAX_VALUE = 2 ^ 31 - 1 = 2147483647`
-
-4. long
-   
-    `Long.SIZE = 64`, `Long.MIN_VALUE = -2 ^ 63 = -9223372036854775808`, `Long.MAX_VALUE = 2 ^ 63 - 1 = 9223372036854775807`
-
-5. float
-    
-    单精度，32位
-
-6. double
-    
-    双精度，64位， 浮点数的默认类型
+6. double **双精度，64位**， 浮点数的默认类型
+    - `Double.SIZE = 64`
+    - `Double.MIN_VALUE = 2 ^ -1074 = 4.9E-324`
+    - `Double.MAX_VALUE = 2 ^ 1024 - 1 = 1.7976931348623157E308`
 
 7. boolean
-    
-    `true` or `false`, 默认值为`false`
+    - `true` or `false`, 默认值为`false`
 
 8. char
-    
-    单一的16位Unicode字符
+    - 单一的**16位**Unicode字符
 
 ### 引用数据类型 (Reference types)
 引用数据类型指向一个对象，指向对象的变量就是**引用变量**，该变量存储了对象在内存中的**地址**。引用变量在被声明时被指定为一个特殊的数据类型，如某一个特定的类。
@@ -195,6 +197,7 @@ Java中的运算符主要可以分为以下几种：
 - 其他运算符
 
 ### 算术运算符
+
 || 描述 |
 |---|---|
 | `+` | 加 |
@@ -221,6 +224,7 @@ public class increment_decrement {
 ```
 
 ### 关系运算符
+
 || 描述 |
 |---|---|
 | `==` | 判断是否相等 |
@@ -231,6 +235,7 @@ public class increment_decrement {
 | `<=` | 判断是否左小于等于右 |
 
 ### 位运算符
+
 || 描述 |
 |---|---|
 | `&` | 按位与 |
@@ -242,10 +247,11 @@ public class increment_decrement {
 | `>>>` | 右移，空位补零 |
 
 ### 逻辑运算符
+
 || 描述 |
 |---|---|
 | `&&` | and |
-| `\|\|` | or |
+| `||` | or |
 | `!` | not |
 
 ### 赋值运算符
@@ -522,6 +528,7 @@ graph TD
 ```
 
 **常用方法**：
+
 | 方法 | 描述 |
 |---|---|
 | `xxxValue()` | 将`Number`对象转换为`xxx`数据类型的值并返回 |
@@ -568,6 +575,7 @@ class java.lang.String
 包含了用于执行基本数学运算的属性和方法。
 
 **常用方法**：
+
 | 方法 | 描述 |
 |---|---|
 | `abs()` | 绝对值 |
@@ -617,15 +625,16 @@ public class math{
 }
 ```
 输出:
+
 |  | ceil | floor | round | rint |
 |---|---|---|---|---|
-| -2.5 | -2.0 | -3.0 | **-2.0** | **-2.0** |
-|-1.6| -1.0 | -2.0 | -2.0 | -2.0 |
-|-1.5| -1.0 | -2.0 | **-1.0** | **-2.0** | 
-|-1.4| -1.0 | -2.0 | -1.0 | -1.0 |
-|1.4| 2.0 | 1.0 | 1.0 | 1.0 |
-|1.5| 2.0 | 1.0 | 2.0 | 2.0 |
-|1.6| 2.0 | 1.0 | 2.0 | 2.0 |
+| <span style="color: orange">-2.5</span> | -2.0 | -3.0 | <span style="color: red">-2.0</span> | <span style="color: red">-2.0</span> |
+| <span style="color: orange">-1.6</span> | -1.0 | -2.0 | -2.0 | -2.0 |
+| <span style="color: orange">-1.5</span> | -1.0 | -2.0 | <span style="color: red">-1.0</span> | <span style="color: red">-2.0</span> | 
+| <span style="color: orange">-1.4</span> | -1.0 | -2.0 | -1.0 | -1.0 |
+| <span style="color: orange">1.4</span> | 2.0 | 1.0 | 1.0 | 1.0 |
+| <span style="color: orange">1.5</span> | 2.0 | 1.0 | 2.0 | 2.0 |
+| <span style="color: orange">1.6</span> | 2.0 | 1.0 | 2.0 | 2.0 |
 
 ```
 max: 2
@@ -642,6 +651,7 @@ random number: 0.3463097398410294
 用于对单个字符进行操作。对象为一个基本数据类型为`char`的值。
 
 **常用方法**
+
 | 方法 | 描述 |
 |---|---|
 | `isLetter()` | 判断字符是否为**字母** |
@@ -734,6 +744,7 @@ String s6 = new String(chars);
 <br>
 
 **常用方法**
+
 | 方法 | 描述 |
 |---|---|
 | `charAt(int index)` | 返回指定索引处的字符 |
@@ -803,3 +814,166 @@ substring: el
 contains: true
 isEmpty: false
 ```
+
+### StringBuffer 和 StringBuilder 类
+对字符串本身进行修改时用到这两个类，修改后不会产生新的未使用对象。`StringBuilder`相较于`StringBuffer`有速度优势，多数情况下使用前者。但是`StringBuilder`不是线程安全的，不支持并发操作。而`StringBuffer`是线程安全的。
+
+**常用方法**
+
+| 方法 | 描述 |
+|---|---|
+| `append(String s)` | 将指定字符串添加至此字符串末尾 |
+| `reverse()` | 将此字符串翻转 |
+| `delete(int begin, int end)` | 删除指定子串 |
+| `insert(int index, String str)` | 将指定字符串插入此字符串的指定索引处 |
+| `replace(int begin, int end, String str)` | 将指定字符串替换至指定索引范围 |
+| ... | ... |
+
+此外，`String`类中的一部分方法也可以沿用。如`length()`，`charAt()`等。
+
+**代码示例**：
+```java
+public class stringbuilder{
+    public static void main(String[] args){
+        StringBuilder s = new StringBuilder("llllllllllllllllllkk");
+        System.out.println(String.format("%-20s %10s", "original string:", s));
+        stringbuilder.print("append: ", s.append("666666666"));
+        stringbuilder.print("reverse: ", s.reverse());
+        stringbuilder.print("delete: ", s.delete(4, 13));
+        stringbuilder.print("insert: ", s.insert(2, "xxxxxx"));
+        stringbuilder.print("replace: ", s.replace(0, 11, "oooooooooooooo"));
+    }
+    
+    private static void print(String str, StringBuilder s){
+        System.out.println(String.format("%-20s %10s", str, s));
+    }
+}
+```
+输出：
+```
+original string:     llllllllllllllllllkk
+append:              llllllllllllllllllkk666666666
+reverse:             666666666kkllllllllllllllllll
+delete:              6666llllllllllllllll
+insert:              66xxxxxx66llllllllllllllll
+replace:             oooooooooooooolllllllllllllll
+```
+
+
+## 数组
+**注意**：Java中提供的数组（**Arrays**）是用来存储**固定数量**的同类型元素，即**静态数组**。数组一旦被创建，便**无法再对其大小进行修改**。如果需要使用动态数组则应该使用Java提供的数据结构**ArrayList**。
+
+### 数组的声明
+数组声明有两种风格：
+```java
+double[] nums;  // preferred
+double nums[];
+```
+第二行的风格来自C / C++，所以更推荐采用第一行的风格。
+
+### 数组的创建
+数组的创建也有两种方式，一种采用`new`语句：
+```java
+double[] nums = new double[100];
+```
+另一种采用如下方式：
+```java
+double[] nums = {1, 2, 3, 4, 5};
+```
+
+### 一维数组
+**代码示例**：
+```java
+import java.util.Arrays;
+
+public class one_demension {
+    public static void main(String[] args){
+        /* create an array */
+        double[] nums = new double[10];
+        for (int i = 0; i < 10; i++){
+            nums[i] = Math.pow(i, 2);
+        }
+        System.out.println(Arrays.toString(nums));
+
+        /* update the element in this array */
+        nums[2] = 2;
+        System.err.println(Arrays.toString(nums));
+
+        /* for each */
+        double even_sum = 0;
+        for (double num: nums){
+            if (num % 2 == 0){
+                even_sum += num;
+            }
+        }
+        System.out.println("even_sum = " + even_sum);
+
+        /* use array as a parameter */
+        double[] reversed_num = one_demension.revese_array(nums);
+        System.out.println("reversed_nums: " + Arrays.toString(reversed_num));
+    }
+
+    private static double[] revese_array(double[] array){
+        int n = array.length;
+        double[] res = new double[n];
+        for (int i = 0; i < n; i++){
+            res[i] = array[n - 1 - i];
+        }
+        return res;
+    }
+}
+```
+输出：
+```
+[0.0, 1.0, 4.0, 9.0, 16.0, 25.0, 36.0, 49.0, 64.0, 81.0]
+[0.0, 1.0, 2.0, 9.0, 16.0, 25.0, 36.0, 49.0, 64.0, 81.0]
+even_sum = 118.0
+reversed_nums: [81.0, 64.0, 49.0, 36.0, 25.0, 16.0, 9.0, 2.0, 1.0, 0.0]
+```
+
+### 多维数组
+以下为使用二维数组简单实现矩阵乘法的代码示例：
+```java
+import java.util.Arrays;
+
+public class multi_mention {
+    public static void main(String[] args){
+        int[][] m1 = {{1, 2, 3}, {4, 5, 6}}, m2 = {{2, 3}, {1, -1}, {5, -3}};
+        int [][] res = multi_mention.matrix_dot(m1, m2);
+        System.out.print("m1 = " + Arrays.deepToString(m1) + "\t\tm2 = " + Arrays.deepToString(m2));
+        System.out.println("\nm1 * m2 = " + Arrays.deepToString(res));
+    }
+
+    private static int[][] matrix_dot(int[][] A, int[][] B){
+        // A = m * n, B = n * l
+        int m = A.length, n = A[0].length, l = B[0].length;        
+        int[][] ans = new int[m][l];
+
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < l; j++){
+                for (int k = 0; k < n; k++){
+                    ans[i][j] += A[i][k] * B[k][j];
+                }
+            }
+        }
+        return ans;
+    }
+}
+
+```
+输出：
+```
+m1 = [[1, 2, 3], [4, 5, 6]]		m2 = [[2, 3], [1, -1], [5, -3]]
+m1 * m2 = [[19, -8], [43, -11]]
+```
+
+### Arrays 类
+`java.util.Arrays`类可以数组进行一些操作，一些常用方法总结如下：
+
+| 方法 | 描述 |
+|---|---|
+| `binarySearch(Object[] array, Object key)` | 对一个**已排序**数组进行二分查找，若查找的元素存在则返回其**索引**，若不存在则返回**插入点处索引的相反数-1** |
+| `equals(Object[] array1, Object[] array2)` | 判断两个数组是否相等 |
+| `fill(Object[], int val)` | 将数组中所有元素替换为指定元素 |
+| `sort(Object[] array)` | 升序排序 |
+| ... | ... |
