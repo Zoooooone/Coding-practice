@@ -1,4 +1,38 @@
 ## 数据类型
+框架示意图如下：
+```mermaid
+graph LR
+    data[数据类型] --- primitive[基本数据类型];
+    data --- reference[引用数据类型];
+
+    %% primitive
+    primitive --- N[数值型];
+    primitive --- C[字符型];
+    primitive --- B[布尔型];
+
+    %% N
+    N --- I[整数型];
+    N --- F[浮点型];
+    I --- b[byte];
+    I --- s[short];
+    I --- i[int];
+    I --- l[long];
+
+    %% F
+    F --- f[float];
+    F --- D[double];
+
+    %% C
+    C --- c[char];
+
+    %% B
+    B --- bool[boolean];
+
+    %% reference
+    reference --- cl[类 class];
+    reference --- in[接口 interface];
+    reference --- ar[数组 array];
+```
 
 ### 基本数据类型 (Primitive types)
 1. byte **8位**
