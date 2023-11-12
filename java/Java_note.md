@@ -1,7 +1,15 @@
+---
+title: Java基础-学习笔记
+date: 2023-11-06 22:36:00 +0900
+categories: [Study notes, Java]
+tags: [java]
+mermaid: true
+---
+
 ## 数据类型
 框架示意图如下：
 ```mermaid
-graph LR
+graph TD
     data[数据类型] --- primitive[基本数据类型];
     data --- reference[引用数据类型];
 
@@ -972,7 +980,7 @@ import java.util.Arrays;
 
 public class multi_mention {
     public static void main(String[] args){
-        int[][] m1 = {{1, 2, 3}, {4, 5, 6}}, m2 = {{2, 3}, {1, -1}, {5, -3}};
+        int[][] m1 = { {1, 2, 3}, {4, 5, 6} }, m2 = { {2, 3}, {1, -1}, {5, -3} };
         int [][] res = multi_mention.matrix_dot(m1, m2);
         System.out.print("m1 = " + Arrays.deepToString(m1) + "\t\tm2 = " + Arrays.deepToString(m2));
         System.out.println("\nm1 * m2 = " + Arrays.deepToString(res));

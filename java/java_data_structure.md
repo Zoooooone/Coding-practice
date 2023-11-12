@@ -93,10 +93,10 @@ ArrayList<E> objectName = new ArrayList<>();
 #### 常用方法
 | 方法 | 描述 |
 | --- | --- |
-| `add(int index, Object element)` | 将元素**插入**到指定索引处，默认为末尾 |
-| `remove(int index)` <br> `remove(Object element)` | **删除**指定索引处的元素 <br> **删除**指定元素|
+| `add(int index, E e)` | 将元素**插入**到指定索引处，默认为末尾 |
+| `remove(int index)` <br> `remove(E e)` | **删除**指定索引处的元素 <br> **删除**指定元素|
 | `get(int index)` | **查询**指定索引处的元素 |
-| `set(int index, Object element)` | **修改**指定索引处的元素 |
+| `set(int index, E e)` | **修改**指定索引处的元素 |
 | `sort()` | 升序排序 |
 | `size()` | 返回元素数量 |
 | `subList(int start, int end)` | 返回指定子列表，**左闭右开** |
@@ -231,12 +231,59 @@ subList                         sublist = [code, good, ok]
 #### 常用方法
 | 方法 | 描述 |
 | --- | --- |
-| `add(int index, Object element)` |  |
-| `addFirst(Object element)` |  |
-| `addLast(Object element)` |  |
-| `` |  |
-| `` |  |
-| `` |  |
+| `add(E e)` <br> `add(int index, E e)` | 向链表**末尾**添加元素，添加成功返回`true`，反之返回`false` <br> 向**指定位置**添加元素，**无返回值**，出错**会抛出异常** |
+| `addFirst(E e)` <br> `addLast(E e)` | 将指定元素添加至链表头部，**无返回值**，出错**会抛出异常** <br> 将指定元素添加至链表尾部，**无返回值**，出错**会抛出异常** |
+| `remove(Object o)` <br> `remove(int index)` | 删除指定元素，删除成功返回`true`，反之返回`false` <br> 删除指定位置元素**并返回**，出错**会抛出异常** |
+| `removeFirst()` <br> `removeLast()` | 删除**并返回**第一个元素，出错**会抛出异常** <br> 删除**并返回**最后一个元素，出错**会抛出异常** |
+| `get(int index)` <br> `getFirst()` <br> `getLast()` | 获取指定位置元素，出错**会抛出异常** <br> 获取链表第一个元素，出错**会抛出异常** <br> 获取链表最后一个元素，出错**会抛出异常** |
+| `set(int index, E e)` | 将指定位置元素替换 |
+| `size()` | 返回链表元素个数 |
+
+代码示例：
+```java
+/* add */
+list2.add(5, 6);
+print("add", list2);
+list2.addFirst(0);
+print("add first 0", list2);
+list2.addLast(7);
+print("add last 7", list2);
+
+/* remove */
+list2.remove(2);
+print("remove element in index 2", list2);
+list2.removeFirst();
+print("remove first", list2);
+list2.removeLast();
+print("remove last", list2);
+
+/* get */
+print("get index 3", list2.get(3));
+print("get first", list2.getFirst());
+print("get last", list2.getLast());
+
+/* set */
+list2.set(2, 10);
+print("set element in index 2 to 10", list2);
+
+/* size */
+print("size of list", list2.size());
+```
+输出：
+```
+add                                                list = [1, 2, 3, 4, 5, 6]     
+add first 0                                        list = [0, 1, 2, 3, 4, 5, 6]  
+add last 7                                         list = [0, 1, 2, 3, 4, 5, 6, 7]
+remove element in index 2                          list = [0, 1, 3, 4, 5, 6, 7]  
+remove first                                       list = [1, 3, 4, 5, 6, 7]     
+remove last                                        list = [1, 3, 4, 5, 6]        
+get index 3                                        num = 5                       
+get first                                          num = 1                       
+get last                                           num = 6                       
+set element in index 2 to 10                       list = [1, 3, 10, 5, 6]       
+size of list                                       num = 5  
+```
+
 
 
 ### Vector
@@ -297,10 +344,10 @@ subList                         sublist = [code, good, ok]
 #### 常用方法
 | 方法 | 描述 |
 |---|---|
-| `add(int index, Object element)` | 向指定位置插入指定元素 |
-| `add(Object element)` | 将指定元素添加至向量末尾 |
+| `add(int index, E e)` | 向指定位置插入指定元素 |
+| `add(E e)` | 将指定元素添加至向量末尾 |
 | `capacity()` | 返回向量的当前容量 |
-| `contains(Object element)` | 判断向量是否包含指定元素 |
+| `contains(E e)` | 判断向量是否包含指定元素 |
 | `get(int index)` | 返回指定索引处的元素，与`` |
 | `equals(Object o)` | 比较指定对象是否与此向量相等 |
 | `remove(int index)` | 移除向量中指定索引的元素 |
@@ -359,7 +406,72 @@ v4[2:6] = [3, 4, 5, 6]
 ```
 
 ### Stack
+Stack是**Vector类的子类**，实现了后进先出的栈。其包括了Vector类中定义的所有方法，也定义了一些自己独有的方法，总结如下：
+| 方法 | 描述 |
+| --- | --- |
+| `empty()` | 判断栈是否为空 |
+| `peek()` | 查看栈顶对象，**不移除** |
+| `pop()` | 弹出栈顶对象并返回 |
+| `push(E e)` | 将对象入栈 |
+| `search(E e)` | 返回指定元素在栈中的位置，**以1为索引起点** |
 
+代码示例：
+```java
+import java.util.*;
+
+public class stack {
+    public static void main(String[] args){
+        /* initialization */
+        Stack<Integer> nums = new Stack<>();
+        for (int i = 0; i < 10; i++){
+            nums.add(i);
+        }
+        print("initialization", nums);
+
+        /* empty */
+        print("is empty", nums.empty());
+
+        /* peek */
+        print("peek", nums.peek());
+        print("stack after peek", nums);
+
+        /* pop */
+        print("pop", nums.pop());
+        print("stack after pop", nums);
+
+        /* push */
+        nums.push(10);
+        print("stack after push", nums);
+
+        /* search */
+        print("the index of 5 in the stack", nums.search(5));
+    }
+
+    public static void print(String prompt, boolean is_empty){
+        System.out.println(String.format("%-30s %-30s", prompt, is_empty));
+    }
+
+    public static void print(String prompt, Integer num){
+        System.out.println(String.format("%-30s %-30s", prompt, num));
+    }
+
+    public static void print(String prompt, Stack<Integer> nums){
+        System.out.println(String.format("%-30s %-30s", prompt, nums));
+    }
+}
+
+```
+输出:
+```
+initialization                 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+is empty                       false                         
+peek                           9                             
+stack after peek               [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+pop                            9                             
+stack after pop                [0, 1, 2, 3, 4, 5, 6, 7, 8]   
+stack after push               [0, 1, 2, 3, 4, 5, 6, 7, 8, 10]
+the index of 5 in the stack    5  
+```
 
 ## Queue
 
