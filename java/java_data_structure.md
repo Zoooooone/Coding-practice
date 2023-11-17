@@ -72,7 +72,7 @@ Collection接口包含三个子接口：
 - [Set](#set)
 
 ## List
-特点：元素**有序**，**可重复**。包含四个子类：
+特点：元素**有序**，**可重复**。包含以下几个常用的实现类：
 - [ArrayList](#arraylist)
 - [LinkedList](#linkedlist)
 - [Vector](#vector)
@@ -474,10 +474,147 @@ the index of 5 in the stack    5
 ```
 
 ## Queue
+特点：元素**有序**，**可重复**。包含以下几个常用的实现类：
+- [PriorityQueue](#priorityqueue)
+- [ArrayDeque](#arraydeque)
+- [LinkedList](#linkedlist)
 
 ### PriorityQueue
+- 基于二叉堆实现
+- 按照入队元素的大小重新排序，最小的元素最先出队列（**最小堆**）
+- 默认排序方式为**升序排序**
+- 线程不安全
 
-### Deque
+#### 构造方法
+```java
+PriorityQueue<E> nums = new PriorityQueue<>();
+```
+
+#### 常用方法
+| 方法类型 | 具体方法 | 描述 |
+| --- | --- | --- |
+| 添加元素 | `add(E e)` <br> `offer(E e)`  | 向优先队列中添加元素，当队列已满会**报错** <br> 向优先队列中添加元素，当队列已满会**返回**`false` |
+| 访问元素 | `element()` <br> `peek()` | 获取队头元素，队列为空时**报错** <br> 获取队头元素，队列为空时**返回**`null` |
+| 删除元素 | `remove()` <br> `poll()` | 删除队头元素并返回，队列为空时**报错** <br> 删除队头元素并返回，队列为空时**返回**`null` |
+| 其他 | `size()` <br> `contains(E e)` <br> `toArray()` | 返回队列长度 <br> 判断队列中是否包含指定元素 <br> 将队列转化为数组并返回 |
+
+代码示例：
+```java
+import java.util.*;
+
+public class priorityqueue{
+    public static void main(String[] args){
+        /* initialization */
+        PriorityQueue<Integer> nums = new PriorityQueue<>();
+
+        /* add, offer */
+        for (int i = 10; i > 0; i--){
+            nums.offer(i);
+        }
+        print("offer:", nums);
+        nums.add(0);
+        print("add:", nums);
+
+        /* element, peek */
+        print("element(default):", nums.element());
+        print("peek(default):", nums.peek());
+
+        /* remove, poll */
+        print("remove:", nums.remove());
+        print("poll:", nums.poll());
+
+        /* size */
+        print("size:", nums.size());
+
+        /* contains */
+        print("contains 7:", nums.contains(7));
+        print("contains 100:", nums.contains(100));
+    }
+
+    public static void print(String prompt, PriorityQueue<Integer> nums){
+        System.out.println(String.format("%-30s %-30s", prompt, nums));
+    }
+
+    public static void print(String prompt, Object num){
+        System.out.println(String.format("%-30s %-30s", prompt, num));
+    }
+
+    public static void print(String prompt, boolean contain){
+        System.out.println(String.format("%-30s %-30s", prompt, contain));
+    }
+}
+```
+输出：
+```
+offer:                         [1, 2, 5, 4, 3, 9, 6, 10, 7, 8]
+add:                           [0, 1, 5, 4, 2, 9, 6, 10, 7, 8, 3]
+element(default):              0                             
+peek(default):                 0                             
+remove:                        0                             
+poll:                          1                             
+size:                          9                             
+contains 7:                    true                          
+contains 100:                  false
+```
+
+#### 遍历方式
+遍历队列的方式：
+```java
+Iterator<Integer> iter = nums.iterator();
+while (iter.hasNext()){
+    print("iter:", iter.next());
+}
+```
+输出：
+```
+iter:                          0                             
+iter:                          1                             
+iter:                          5                             
+iter:                          4                             
+iter:                          2                             
+iter:                          9                             
+iter:                          6                             
+iter:                          10                            
+iter:                          7                             
+iter:                          8                             
+iter:                          3
+```
+
+#### 比较器（Comparator）
+通过使用Comparator，我们可以自定义队列中元素的排序方式。使用时需要创建自定义的比较器类，令其实现Comparator接口，示例如下：
+```java
+class CustomComparator implements Comparator<Integer>{
+    @Override
+    public int compare(Integer n1, Integer n2){
+        if (n1 > n2){
+            return -1;
+        }
+        else if (n1 == n2){
+             return 0;
+        }
+        else{ 
+            return 1;
+        }
+    }
+}
+```
+这里看到通过Comparator接口实现的自定义类中存在一个`compare`方法，它的作用是用来定义参数的排序方式。更具体地说，这个方法返回一个具有三种可能性的值 **（正、负、零）**，分别代表第一个参数**大于、小于、等于**第二个参数。而这里可以看到当`n1 > n2`时返回负值，说明此时在这个自定义的比较器类中**正常情况下越大的整数会被识别为越小的值**，也即**倒序**排列。将这个自定义的排序方式应用到优先队列中的方式如下：
+```java
+PriorityQueue<Integer> nums = new PriorityQueue<>(new CustomComparator());
+```
+此时这个优先队列实际上成为了一个**最大堆**。最后看一下实现的效果：
+```java
+for (int i = 0; i < 10; i++){
+    nums.offer(i);
+}
+System.out.println(String.format("%-10s %-10s", "nums:", nums));
+```
+输出：
+```
+nums:      [9, 8, 5, 6, 7, 1, 4, 0, 3, 2]
+```
+
+### ArrayDeque
 
 
 ## Set
