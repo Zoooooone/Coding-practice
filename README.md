@@ -13,7 +13,3 @@ This repo is used to store contents of my coding practice.
     - data structure
     - algorithm
     <br>
-
-- **ML**
-    <br>
-    <img src="assets\img\pytorch.svg" width=48 height=48> &ensp; <img src="assets\img\tensorflow.svg" width=48 height=48> &ensp; <img src="assets\img\scikitlearn.svg" width=48 height=48> &ensp; <img src="assets\img\numpy.svg" width=48 height=48> &ensp; <img src="assets\img\matplotlib.svg" width=48 height=48>
