@@ -1,6 +1,6 @@
 # simulation
 def minimumDaysToGetPoints_naive(a, b, n):
-    ans = 0
+    ans = -1
     point = a
 
     def containSeven(num):
@@ -17,7 +17,7 @@ def minimumDaysToGetPoints_naive(a, b, n):
             point += b
         point += a
 
-    return ans
+    return ans + 1
 
 
 # advanced simulation
@@ -31,30 +31,42 @@ def minimumDaysToGetPoints(a, b, n):
     point = a
     scopes = [daysContainSeven(scope) for scope in [10 ** n for n in range(10)]]  # [0, 1, 19, 271, 3439, 40951, 468559, 5217031, 56953279, 612579511]
     pointer = len(str(n // a)) - 1
+    containSeven = False
 
-    while pointer >= 0:
+    while True:
         digit = 0
         while point < n:
             ans += 10 ** pointer
-            digit += 1
-            if digit != 7:
-                point += 10 ** pointer * a + scopes[pointer] * b
+            if containSeven:
+                point += 10 ** pointer * (a + b)
             else:
-                point += 10 ** pointer * a + 10 ** pointer * b
+                if digit != 7:
+                    point += 10 ** pointer * a + scopes[pointer] * b
+                else:
+                    point += 10 ** pointer * (a + b)
+                digit += 1
+        digit -= 1
         if digit != 7:
             point -= 10 ** pointer * a + scopes[pointer] * b
         else:
-            point -= 10 ** pointer * a + 10 ** pointer * b
+            point -= 10 ** pointer * (a + b)
         if not pointer:
             return ans
         ans -= 10 ** pointer
         pointer -= 1
+        if digit == 7:
+            containSeven = True
 
 
 if __name__ == "__main__":
-    for a in range(1, 5):
-        for b in range(5, 10):
-            naive = minimumDaysToGetPoints_naive(a, b, 1000)
-            advanced = minimumDaysToGetPoints(a, b, 1000)
-            if naive != advanced:
-                print(f"a = {a}, b = {b}, naive = {naive}, advanced = {advanced}")
+    debug = False
+
+    if not debug:
+        for a in range(1, 10):
+            for b in range(1, 20):
+                naive = minimumDaysToGetPoints_naive(a, b, 10000)
+                advanced = minimumDaysToGetPoints(a, b, 10000)
+                if naive != advanced:
+                    print(f"a = {a}, b = {b}, naive = {naive}, advanced = {advanced}")
+    else:
+        print(minimumDaysToGetPoints(1, 1, 8))
