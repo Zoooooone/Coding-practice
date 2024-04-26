@@ -11,7 +11,7 @@ def time_plot(weight, step):
     w = v
     
     for wi in range(1, weight, step):
-        knapsack = Knapsack(w, v, wi)
+        knapsack = Knapsack(w, v, [], wi)
         start = time()
         knapsack.knapsack_01()
         end = time()
@@ -29,7 +29,7 @@ def space_plot(weight, step):
     w = v
     
     for wi in range(1, weight, step):
-        knapsack = Knapsack(w, v, wi)
+        knapsack = Knapsack(w, v, [], wi)
         
         @memory_profiler.profile
         def profiled_function():

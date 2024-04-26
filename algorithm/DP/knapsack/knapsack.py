@@ -2,47 +2,86 @@ import typing
 
 
 class Knapsack:
-    def __init__(self, w: list[int], v: list[int], weight: int):
-        # weight array, w[i] means the weight of i th thing
+    def __init__(self, w: list[int], v: list[int], n: list[int], M: int):
+        # weight array, w[i] means the weight of i-th thing
         self.w = w
-        # value array, v[i] means the value if i th thing
+        # value array, v[i] means the value if i-th thing
         self.v = v
-        # the constraint of total weight
-        self.weight = weight
+        # number array, n[i] means the number of i-th thing
+        self.n = n
+        # the constraint of total weight M
+        self.M = M
 
     # 0-1 knapsack
     def knapsack_01(self) -> int:
         n = len(self.w)
-        dp = [[0] * (self.weight + 1) for _ in range(n + 1)]
-        for i in range(1, n + 1):
-            for j in range(0, self.weight + 1):
-                if j >= self.w[i - 1]:
-                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - self.w[i - 1]] + self.v[i - 1])  
-                else:
-                    dp[i][j] = dp[i - 1][j]
-        return dp[n][self.weight]
+        dp = [0] * (self.M + 1)
+        choice = [[0] * (self.M + 1) for _ in range(n)]
+        path = []
+        for i in range(n):
+            for j in range(self.M, -1, -1):
+                if j >= self.w[i] and dp[j-self.w[i]] + self.v[i] > dp[j]:
+                    dp[j] = dp[j-self.w[i]] + self.v[i]
+                    choice[i][j] = 1
+        j = self.M
+        for i in range(n-1, -1, -1):
+            if choice[i][j]:
+                path.append(w[i])
+                j -= w[i]
+        return dp[-1], path[::-1]
 
     # unbounded knapsack
     def knapsack_unbounded(self) -> int:
         n = len(self.w)
-        dp = [[0] * (self.weight + 1) for _ in range(n + 1)]
-        for i in range(1, n + 1):
-            for j in range(0, self.weight + 1):
-                if j >= self.w[i - 1]:
-                    dp[i][j] = max(dp[i - 1][j], dp[i][j - self.w[i - 1]] + self.v[i - 1])
-                else:
-                    dp[i][j] = dp[i - 1][j]
-        return dp[n][self.weight]
+        dp = [0] * (self.M + 1)
+        for i in range(n):
+            for j in range(self.M + 1):
+                if j >= self.w[i]:
+                    dp[j] = max(dp[j], dp[j-self.w[i]] + self.v[i])
+        return dp[-1]
+
+    # bounded knapsack
+    def knapsack_bounded(self) -> int:
+        n = len(self.w)
+        dp = [0] * (self.M + 1)
+        for i in range(n):
+            for j in range(self.M, -1, -1):
+                for k in range(min(self.n[i], j // self.w[i]) + 1):
+                    dp[j] = max(dp[j], dp[j-k*self.w[i]]+k*self.v[i])
+        return dp[-1]
+    
+    # exactly fill
+    def knapsack_fill_01(self) -> int:
+        n = len(self.w)
+        dp = [-1] * (self.M + 1)
+        dp[0] = 0
+        choice = [[0] * (self.M + 1) for _ in range(n)]
+        path = []
+        for i in range(n):
+            for j in range(self.M, -1, -1):
+                if j >= self.w[i] and dp[j-self.w[i]] != -1 and dp[j-self.w[i]] + self.v[i] > dp[j]:
+                    dp[j] = dp[j-self.w[i]] + self.v[i]
+                    choice[i][j] = 1
+        j = self.M
+        for i in range(n-1, -1, -1):
+            if choice[i][j]:
+                path.append(w[i])
+                j -= w[i]
+        return dp[-1], path[::-1]
 
     def print_res(self, func) -> None:
-        print(func())
+        print(f"res = {func()}, func = {func}")
 
 
 if __name__ == "__main__":
-    w = [1, 3, 2, 5, 4, 6]
-    v = [2, 4, 3, 7, 5, 8]
-    weight = 0
+    w = [8, 3, 6, 7, 4, 5]
+    v = [6, 4, 3, 7, 2, 5]
+    n = [2, 3, 1, 2, 4, 2]
+    print(f"w = {w}, v = {v}, n = {n}, M = ?")
+    M = int(input())
 
-    knapsack = Knapsack(w, v, weight)
+    knapsack = Knapsack(w, v, n, M)
     knapsack.print_res(knapsack.knapsack_01)
     knapsack.print_res(knapsack.knapsack_unbounded)
+    knapsack.print_res(knapsack.knapsack_bounded)
+    knapsack.print_res(knapsack.knapsack_fill_01)
