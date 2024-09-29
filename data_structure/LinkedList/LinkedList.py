@@ -102,38 +102,3 @@ class LinkedList:
         if not cur or index == 0:
             return "Error"
         prev.next = cur.next
-    
-
-if __name__ == "__main__":
-    nums = [1, 5, 3, 7, 3, 2, 6, 4]
-    linkedlist = LinkedList()
-    linkedlist.create(nums)
-
-    def printLinkedList(data: LinkedList) -> list:
-        res = []
-        cur = linkedlist.head
-        while cur:
-            res.append(cur.val)
-            cur = cur.next
-        print(res)
-    
-    print(linkedlist.length())
-    print(linkedlist.find(5))
-    print(linkedlist.find(9))
-    print(linkedlist.getVal(2))
-    print(linkedlist.getVal(-1))
-
-    printLinkedList(linkedlist)
-
-    linkedlist.insertFront(10)
-    linkedlist.insertInside(3, 9)
-    linkedlist.insertRear(45)
-
-    printLinkedList(linkedlist)
-
-    linkedlist.update(5, 100)
-    linkedlist.deleteFront()
-    linkedlist.deleteInside(7)
-    linkedlist.deleteRear()
-
-    printLinkedList(linkedlist)
