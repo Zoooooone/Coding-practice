@@ -1,6 +1,3 @@
-import typing
-
-
 class Stack:
     def __init__(self, size: int):
         self.stk = []

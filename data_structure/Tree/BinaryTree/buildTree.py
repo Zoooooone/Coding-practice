@@ -1,6 +1,3 @@
-import typing
-
-
 class TreeNode:
     def __init__(self, val: int):
         self.val = val
